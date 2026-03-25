@@ -1,0 +1,15 @@
+[Unit]
+Description=Show the count of today's Todoist tasks in the taskbar
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/todoist-badge-updater --interval 300
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

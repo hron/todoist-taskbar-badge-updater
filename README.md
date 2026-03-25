@@ -33,41 +33,56 @@ python3 todoist-badge-updater.py --interval 300
 
 #### Options
 - `--token` Todoist API token (or use `TODOIST_API_TOKEN` env var)
+- `--desktop-id` D-Bus desktop ID for the Todoist app (default: `application://todoist.desktop`)
 - `--interval` Update interval in seconds (default: 300)
 - `--verbose` Enable debug logging
 
-### Systemd Service
+### Systemd service (Arch package)
 
-A sample user service file is provided:
+When installed from the provided local `PKGBUILD`, the package places a user unit at
+`/usr/lib/systemd/user/todoist-badge-updater.service`. The packaged unit intentionally contains no
+`Environment=` lines so secrets are not embedded.
 
-- Path: `~/.config/systemd/user/todoist-badge.service`
+Build & install (local PKGBUILD):
 
-#### Example
-```ini
-[Unit]
-Description=Todoist Count Badge Updater
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/env python3 %h/src/todoist-taskbar-badge-updater/todoist-badge-updater.py --interval 300
-Environment="TODOIST_API_TOKEN=<your_token>"
-Environment="TODOIST_DESKTOP_ID=application://todoist.desktop"
-Restart=on-failure
-RestartSec=10
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=default.target
+```bash
+cd packages/arch
+makepkg -si
 ```
 
-#### Enable and Start
+Persistent environment (recommended, systemd v239+)
+
+Create a systemd environment.d file so the user manager picks up the API token persistently
+without embedding it into unit files. Example:
+
 ```bash
-systemctl --user daemon-reload
-systemctl --user enable todoist-badge.service
-systemctl --user start todoist-badge.service
+# create the file ~/.config/environment.d/todoist.conf
+TODOIST_API_TOKEN=your_token_here
+TODOIST_DESKTOP_ID=application://todoist.desktop  
+```
+
+Ensure the file is only readable by your user:
+
+```bash
+chmod 600 ~/.config/environment.d/todoist.conf
+```
+
+Reload the user manager so the environment is picked up (required so `systemctl --user start`
+uses the new variables):
+
+```bash
+systemctl --user daemon-reexec
+systemctl --user show-environment | grep -i todoist
+```
+
+Start the service after the environment is loaded:
+
+```bash
+systemctl --user daemon-reload   # pick up newly-installed unit files
+systemctl --user start todoist-badge-updater.service
+# (optional) enable to start at login - package does NOT enable automatically
+systemctl --user enable todoist-badge-updater.service
+journalctl --user -u todoist-badge-updater.service -f
 ```
 
 ## Logging
