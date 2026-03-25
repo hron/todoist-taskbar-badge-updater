@@ -51,7 +51,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env python3 %h/src/todoist-count-badge/todoist-badge-updater.py --interval 300
+ExecStart=/usr/bin/env python3 %h/src/todoist-taskbar-badge-updater/todoist-badge-updater.py --interval 300
 Environment="TODOIST_API_TOKEN=<your_token>"
 Environment="TODOIST_DESKTOP_ID=application://todoist.desktop"
 Restart=on-failure
