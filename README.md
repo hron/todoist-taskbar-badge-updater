@@ -1,5 +1,7 @@
 # Todoist Count Badge
 
+![Todoist Count Badge](screenshot.png)
+
 This project updates the count badge on the Todoist desktop application via D-Bus, displaying the number of tasks scheduled for today or overdue. It is designed for Linux desktop environments that support Unity LauncherEntry signals.
 
 ## Features
