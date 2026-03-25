@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```bash
 export TODOIST_API_TOKEN="<your_token>"
 export TODOIST_DESKTOP_ID="application://todoist.desktop"  # Optional
-python3 todoist_badge.py --interval 300
+python3 todoist-badge-updater.py --interval 300
 ```
 
 #### Options
@@ -43,7 +43,7 @@ A sample user service file is provided:
 - Path: `~/.config/systemd/user/todoist-badge.service`
 
 #### Example
-```
+```ini
 [Unit]
 Description=Todoist Count Badge Updater
 After=network-online.target
@@ -51,7 +51,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env python3 %h/src/todoist-count-badge/todoist_badge.py --interval 300
+ExecStart=/usr/bin/env python3 %h/src/todoist-count-badge/todoist-badge-updater.py --interval 300
 Environment="TODOIST_API_TOKEN=<your_token>"
 Environment="TODOIST_DESKTOP_ID=application://todoist.desktop"
 Restart=on-failure
