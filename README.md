@@ -1,6 +1,6 @@
-# Todoist Count Badge
+# Todoist Taskbar Badge Updater
 
-![Todoist Count Badge](screenshot.png)
+![Todoist Taskbar Badge Updater](screenshot.png)
 
 This project updates the count badge on the Todoist desktop application via D-Bus, displaying the number of tasks scheduled for today or overdue. It is designed for Linux desktop environments that support Unity LauncherEntry signals.
 
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 ```bash
 export TODOIST_API_TOKEN="<your_token>"
 export TODOIST_DESKTOP_ID="application://todoist.desktop"  # Optional
-python3 todoist-badge-updater.py --interval 300
+python3 todoist-taskbar-badge-updater.py --interval 300
 ```
 
 #### Options
@@ -42,7 +42,7 @@ python3 todoist-badge-updater.py --interval 300
 ### Systemd service (Arch package)
 
 When installed from the provided local `PKGBUILD`, the package places a user unit at
-`/usr/lib/systemd/user/todoist-badge-updater.service`. The packaged unit intentionally contains no
+`/usr/lib/systemd/user/todoist-taskbar-badge-updater.service`. The packaged unit intentionally contains no
 `Environment=` lines so secrets are not embedded.
 
 Build & install (local PKGBUILD):
@@ -81,10 +81,10 @@ Start the service after the environment is loaded:
 
 ```bash
 systemctl --user daemon-reload   # pick up newly-installed unit files
-systemctl --user start todoist-badge-updater.service
+systemctl --user start todoist-taskbar-badge-updater.service
 # (optional) enable to start at login - package does NOT enable automatically
-systemctl --user enable todoist-badge-updater.service
-journalctl --user -u todoist-badge-updater.service -f
+systemctl --user enable todoist-taskbar-badge-updater.service
+journalctl --user -u todoist-taskbar-badge-updater.service -f
 ```
 
 ## Logging

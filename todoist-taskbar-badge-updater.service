@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/todoist-badge-updater --interval 300
+ExecStart=/usr/bin/todoist-taskbar-badge-updater --interval 300
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal

@@ -1,4 +1,4 @@
-pkgname=todoist-badge-updater
+pkgname=todoist-taskbar-badge-updater
 pkgver=0.1
 pkgrel=1
 pkgdesc="Show the count of today's Todoist tasks in the taskbar"
@@ -17,8 +17,8 @@ build() {
 package() {
   cd "$srcdir/$pkgname" || return 1
 
-  install -Dm755 todoist-badge-updater.py "$pkgdir/usr/bin/todoist-badge-updater"
+  install -Dm755 todoist-taskbar-badge-updater.py "$pkgdir/usr/bin/todoist-taskbar-badge-updater"
   install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 todoist-badge-updater.service "$pkgdir/usr/lib/systemd/user/todoist-badge-updater.service"
+  install -Dm644 todoist-taskbar-badge-updater.service "$pkgdir/usr/lib/systemd/user/todoist-taskbar-badge-updater.service"
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Todoist Badge Updater - Updates the count badge on todoist.desktop via D-Bus
+Todoist Taskbar Badge Updater - Updates the count badge on todoist.desktop via D-Bus
 This script fetches tasks from Todoist API and displays the count of tasks
 scheduled for today or overdue.
 """
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(log_level)
 
 
-class TodoistBadgeUpdater:
+class TodoistTaskbarBadgeUpdater:
     """Updates Todoist count badge via D-Bus using Todoist API."""
 
     TODOIST_API_URL = "https://api.todoist.com/api/v1"
@@ -185,7 +185,7 @@ def main():
         app_id = os.getenv("TODOIST_DESKTOP_ID", "application://todoist.desktop")
     logger.debug(f"Using application ID: {app_id}")
 
-    updater = TodoistBadgeUpdater(api_token, app_id, args.interval)
+    updater = TodoistTaskbarBadgeUpdater(api_token, app_id, args.interval)
     updater.run()
 
     sys.exit(0)
