@@ -52,32 +52,26 @@ cd packages/arch
 makepkg -si
 ```
 
-Persistent environment (recommended, systemd v239+)
+Persistent environment (recommended)
 
-Create a systemd environment.d file so the user manager picks up the API token persistently
-without embedding it into unit files. Example:
+Create a configuration file to store the API token persistently. The systemd unit
+will load this file automatically when the service starts:
 
 ```bash
-# create the file ~/.config/environment.d/todoist.conf
+# create the file ~/.config/todoist-taskbar-badge-updater.conf
+cat > ~/.config/todoist-taskbar-badge-updater.conf << 'EOF'
 TODOIST_API_TOKEN=your_token_here
-TODOIST_DESKTOP_ID=application://todoist.desktop  
+TODOIST_DESKTOP_ID=application://todoist.desktop
+EOF
 ```
 
 Ensure the file is only readable by your user:
 
 ```bash
-chmod 600 ~/.config/environment.d/todoist.conf
+chmod 600 ~/.config/todoist-taskbar-badge-updater.conf
 ```
 
-Reload the user manager so the environment is picked up (required so `systemctl --user start`
-uses the new variables):
-
-```bash
-systemctl --user daemon-reexec
-systemctl --user show-environment | grep -i todoist
-```
-
-Start the service after the environment is loaded:
+Start the service:
 
 ```bash
 systemctl --user daemon-reload   # pick up newly-installed unit files
