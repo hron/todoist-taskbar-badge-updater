@@ -1,5 +1,7 @@
 # Todoist Taskbar Badge Updater
 
+[![AUR version](https://img.shields.io/aur/version/todoist-taskbar-badge-updater-git?style=flat-square&logo=arch-linux)](https://aur.archlinux.org/packages/todoist-taskbar-badge-updater-git)
+
 ![Todoist Taskbar Badge Updater](screenshot.png)
 
 This project updates the count badge on the Todoist desktop application via D-Bus, displaying the number of tasks scheduled for today or overdue. It is designed for Linux desktop environments that support Unity LauncherEntry signals.
